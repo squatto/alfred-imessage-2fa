@@ -6,7 +6,7 @@ Find two-factor authentication codes in your recent iMessage messages.
 
 ## Installation
 
-1. [Download the latest version](https://github.com/squatto/alfred-imessage-2fa/releases/download/latest/iMessage.2FA.alfredworkflow)
+1. [Download the latest version](https://github.com/squatto/alfred-imessage-2fa/releases/latest/download/iMessage.2FA.alfredworkflow)
 2. Install the workflow by double-clicking the `.alfredworkflow` file
 3. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
