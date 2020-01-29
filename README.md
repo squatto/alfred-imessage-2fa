@@ -16,3 +16,6 @@ Type `2fm` to view the most recent two-factor authentication codes from iMessage
 
 Select a 2FA code and press `<enter>` to copy it to your clipboard. Press `⌘+<enter>` to copy it to your clipboard and also paste it into the active app window.
 
+## Compatibility
+
+This was developed for Alfred 4, but it should work with Alfred 3 as well.
