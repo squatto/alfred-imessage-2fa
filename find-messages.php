@@ -1,9 +1,6 @@
 <?php
 
 use Alfred\Workflows\Workflow;
-use Carbon\Carbon;
-
-date_default_timezone_set('America/Denver');
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -49,13 +46,13 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
     if (preg_match('/(^|\s|\R|\t)(\d{5,8})($|\s|\R|\t)/', $message['text'], $matches)) {
         $found++;
         $code = $matches[2];
-        $date = Carbon::parse($message['message_date']);
+        $date = formatDate($message['message_date']);
         $text = formatText($message['text']);
         $sender = formatSender($message['sender']);
 
         $workflow->result()
                  ->title($code)
-                 ->subtitle($date->shortRelativeToNowDiffForHumans() . " from $sender: $text")
+                 ->subtitle("$date from $sender: $text")
                  ->arg($code)
                  ->valid(true);
 
@@ -74,6 +71,24 @@ if (! $found) {
 }
 
 echo $workflow->output();
+
+/**
+ * Format the date of the message
+ *
+ * @param string $date
+ *
+ * @return string
+ */
+function formatDate($date)
+{
+    $time = strtotime($date);
+
+    if (date('m/d/Y', $time) === date('m/d/Y')) {
+        return 'Today @ ' . date('g:ia', $time);
+    }
+
+    return date('M j @ g:ia', $time);
+}
 
 /**
  * Format the text of the message
