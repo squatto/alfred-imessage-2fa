@@ -18,4 +18,4 @@ Select a 2FA code and press `<enter>` to copy it to your clipboard. Press `⌘+<
 
 ## Compatibility
 
-This was developed for Alfred 4, but it should work with Alfred 3 as well.
+This workflow was developed for use with Alfred 4.
