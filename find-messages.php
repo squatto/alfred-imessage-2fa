@@ -20,45 +20,66 @@ if (! is_readable($dbPath)) {
 
 try {
     $db = new PDO('sqlite:' . $dbPath);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     $workflow->result()
              ->title('ERROR: Unable to Access Your Messages')
              ->subtitle('We were unable to access the file that contains your text messages')
              ->arg('')
              ->valid(true);
+    $workflow->result()
+             ->title('Error Message:')
+             ->subtitle($e->getMessage())
+             ->arg('')
+             ->valid(true);
     echo $workflow->output();
     exit;
 }
 
-$query = $db->query("
-    select
-        message.rowid,
-        ifnull(handle.uncanonicalized_id, chat.chat_identifier) AS sender,
-        message.service,
-        datetime(message.date / 1000000000 + 978307200, 'unixepoch', 'localtime') AS message_date,
-        message.text
-    from
-        message
-            left join chat_message_join
-                    on chat_message_join.message_id = message.ROWID
-            left join chat
-                    on chat.ROWID = chat_message_join.chat_id
-            left join handle
-                    on message.handle_id = handle.ROWID
-    where
-        is_from_me = 0
-        and text is not null
-        and length(text) > 0
-        and (
-            text glob '*[0-9][0-9][0-9][0-9][0-9]*'
-            or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
-            or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
-            or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
-        )
-    order by
-        message.date desc
-    limit 100
-");
+try {
+    $query = $db->query("
+        select
+            message.rowid,
+            ifnull(handle.uncanonicalized_id, chat.chat_identifier) AS sender,
+            message.service,
+            datetime(message.date / 1000000000 + 978307200, 'unixepoch', 'localtime') AS message_date,
+            message.text
+        from
+            message
+                left join chat_message_join
+                        on chat_message_join.message_id = message.ROWID
+                left join chat
+                        on chat.ROWID = chat_message_join.chat_id
+                left join handle
+                        on message.handle_id = handle.ROWID
+        where
+            is_from_me = 0
+            and text is not null
+            and length(text) > 0
+            and (
+                text glob '*[0-9][0-9][0-9][0-9][0-9]*'
+                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
+                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
+                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
+            )
+        order by
+            message.date desc
+        limit 100
+    ");
+} catch (PDOException $e) {
+    $workflow->result()
+             ->title('ERROR: Unable to Query Your Messages')
+             ->subtitle('We were unable to run the query that reads your text messages')
+             ->arg('')
+             ->valid(true);
+    $workflow->result()
+             ->title('Error Message:')
+             ->subtitle($e->getMessage())
+             ->arg('')
+             ->valid(true);
+    echo $workflow->output();
+    exit;
+}
 
 $found = 0;
 $max = 8;
@@ -86,7 +107,7 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
 if (! $found) {
     $workflow->result()
              ->title('No 2FA Codes Found')
-             ->subtitle('No two-factor authentication codes were found in your recent iMessage messages')
+             ->subtitle('No two-factor authentication codes were found in your recent text messages')
              ->arg('')
              ->valid(true);
 }
