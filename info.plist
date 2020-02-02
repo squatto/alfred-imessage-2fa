@@ -196,6 +196,8 @@ Select a 2FA code and press `&lt;enter&gt;` to copy it to your clipboard. Press 
 			<integer>200</integer>
 		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>1.2.0</string>
 	<key>webaddress</key>
