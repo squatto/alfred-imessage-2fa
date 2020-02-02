@@ -8,6 +8,16 @@ $workflow = new Workflow;
 
 $dbPath = $_SERVER['HOME'] . '/Library/Messages/chat.db';
 
+if (! is_readable($dbPath)) {
+    $workflow->result()
+             ->title('ERROR: Unable to Access Your Messages')
+             ->subtitle('We were unable to access the file that contains your text messages')
+             ->arg('')
+             ->valid(true);
+    echo $workflow->output();
+    exit;
+}
+
 $db = new PDO('sqlite:' . $dbPath);
 $query = $db->query("
     select
