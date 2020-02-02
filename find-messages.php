@@ -18,7 +18,18 @@ if (! is_readable($dbPath)) {
     exit;
 }
 
-$db = new PDO('sqlite:' . $dbPath);
+try {
+    $db = new PDO('sqlite:' . $dbPath);
+} catch (PDOException $e) {
+    $workflow->result()
+             ->title('ERROR: Unable to Access Your Messages')
+             ->subtitle('We were unable to access the file that contains your text messages')
+             ->arg('')
+             ->valid(true);
+    echo $workflow->output();
+    exit;
+}
+
 $query = $db->query("
     select
         message.rowid,
