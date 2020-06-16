@@ -199,7 +199,7 @@ Select a 2FA code and press `&lt;enter&gt;` to copy it to your clipboard. Press 
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.0</string>
+	<string>1.2.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
 </dict>
