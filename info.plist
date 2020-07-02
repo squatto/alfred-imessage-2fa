@@ -41,6 +41,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>F66B4E67-AAD4-4597-9902-E084CCFAE32F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3E71F597-EA2F-4B39-B8E4-69A3D625872E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Scott Carpenter</string>
@@ -126,7 +139,7 @@
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
-				<true/>
+				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
 				<key>transient</key>
@@ -138,6 +151,29 @@
 			<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>osascript -e 'tell application "System Events" to keystroke the clipboard as text'</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3E71F597-EA2F-4B39-B8E4-69A3D625872E</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -173,6 +209,13 @@ Select a 2FA code and press `&lt;enter&gt;` to copy it to your clipboard. Press 
 			<integer>325</integer>
 			<key>ypos</key>
 			<integer>335</integer>
+		</dict>
+		<key>3E71F597-EA2F-4B39-B8E4-69A3D625872E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<integer>200</integer>
 		</dict>
 		<key>579C566A-EAC9-4F0C-A398-0A4D25EB7251</key>
 		<dict>
