@@ -22,21 +22,31 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
-				<key>modifiers</key>
-				<integer>1048576</integer>
-				<key>modifiersubtext</key>
-				<string>Copy the 2FA code to your clipboard and paste it into the active application</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>3D26FE0D-9464-426E-8EAA-03376F20B9CA</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Copy the code and paste it into the active app with simulated keystrokes</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>42B9D6A1-ACF9-4562-9718-B4A1C983D5AA</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>Copy the code and paste it into the active app with a system paste</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -148,6 +158,23 @@
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
+			<string>3D26FE0D-9464-426E-8EAA-03376F20B9CA</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>transient</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
 			<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
 			<key>version</key>
 			<integer>3</integer>
@@ -179,7 +206,7 @@
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
-				<false/>
+				<true/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
 				<key>transient</key>
@@ -188,7 +215,7 @@
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
-			<string>3D26FE0D-9464-426E-8EAA-03376F20B9CA</string>
+			<string>42B9D6A1-ACF9-4562-9718-B4A1C983D5AA</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -200,22 +227,39 @@
 
 Type `2fm` to view the most recent two-factor authentication codes from iMessage messages.
 
-Select a 2FA code and press `&lt;enter&gt;` to copy it to your clipboard. Press `⌘+&lt;enter&gt;` to copy it to your clipboard and also paste it into the active app window.</string>
+Select a 2FA code and do one of the following:
+
+* Press `&lt;enter&gt;` to copy it to your clipboard
+* Press `⌘+&lt;enter&gt;` (command + enter) to copy it to your clipboard and paste it into the active app window using simulated keystrokes
+  * Some websites (e.g. Wells Fargo online banking) don't support pasting a 2FA code, so this will instead simulate typing the code
+  * In order for this to work, you MUST grant Alfred automation access to `System Events`. If you haven't already done so, you will be prompted to grant access. [See here for more information about Alfred automation.](https://www.alfredapp.com/help/getting-started/permissions/#automation) 
+* Press `⌥+&lt;enter&gt;` (option + enter) to copy it to your clipboard and paste it into the active app window using the system paste (similar to pressing `⌘+V`)</string>
 	<key>uidata</key>
 	<dict>
 		<key>3D26FE0D-9464-426E-8EAA-03376F20B9CA</key>
 		<dict>
+			<key>note</key>
+			<string>Only copy to clipboard</string>
 			<key>xpos</key>
 			<integer>325</integer>
 			<key>ypos</key>
-			<integer>335</integer>
+			<integer>190</integer>
 		</dict>
 		<key>3E71F597-EA2F-4B39-B8E4-69A3D625872E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>485</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>335</integer>
+		</dict>
+		<key>42B9D6A1-ACF9-4562-9718-B4A1C983D5AA</key>
+		<dict>
+			<key>note</key>
+			<string>Method 2: Alfred paste</string>
+			<key>xpos</key>
+			<integer>325</integer>
+			<key>ypos</key>
+			<integer>505</integer>
 		</dict>
 		<key>579C566A-EAC9-4F0C-A398-0A4D25EB7251</key>
 		<dict>
@@ -233,16 +277,18 @@ Select a 2FA code and press `&lt;enter&gt;` to copy it to your clipboard. Press 
 		</dict>
 		<key>F66B4E67-AAD4-4597-9902-E084CCFAE32F</key>
 		<dict>
+			<key>note</key>
+			<string>Method 1: AppleScript paste to simulate keystrokes</string>
 			<key>xpos</key>
 			<integer>325</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>335</integer>
 		</dict>
 	</dict>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.1</string>
+	<string>1.2.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
 </dict>
