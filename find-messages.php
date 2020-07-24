@@ -85,7 +85,7 @@ $found = 0;
 $max = 8;
 
 while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
-    if (preg_match('/(^|\s|\R|\t|G-)(\d{5,8})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
+    if (preg_match('/(^|\s|\R|\t|G-|:)(\d{5,8})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
         $found++;
         $code = $matches[2];
         $date = formatDate($message['message_date']);
