@@ -57,8 +57,10 @@ try {
             and text is not null
             and length(text) > 0
             and (
-                text glob '*[0-9][0-9][0-9][0-9][0-9]*'
+                text glob '*[0-9][0-9][0-9][0-9]*'
+                or text glob '*[0-9][0-9][0-9][0-9][0-9]*'
                 or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
+                or text glob '*[0-9][0-9][0-9]-[0-9][0-9][0-9]*'
                 or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
                 or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
             )
@@ -85,9 +87,27 @@ $found = 0;
 $max = 8;
 
 while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
+    $code = null;
+
     if (preg_match('/(^|\s|\R|\t|G-|:)(\d{5,8})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
-        $found++;
+        // 5-8 consecutive digits
         $code = $matches[2];
+    } elseif (preg_match('/(code:|is:)\s*(\d{4,8})($|\s|\R|\t|\.)/i', $message['text'], $matches)) {
+        // "code:" or "is:", optional whitespace, then 4-8 consecutive digits
+        // examples:
+        //   "Your Airbnb verification code is: 1234."
+        //   "Here is your authorization code:9384"
+        $code = $matches[2];
+    } elseif (preg_match('/(^|code:|is:)\s*(\d{3})-(\d{3})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
+        // line beginning or "code:" or "is:", optional whitespace, 3 consecutive digits, a hyphen, 3 consecutive digits
+        // examples:
+        //   "123-456"
+        //   "Your Stripe verification code is: 719-839."
+        $code = $matches[2] . $matches[3];
+    }
+
+    if ($code) {
+        $found++;
         $date = formatDate($message['message_date']);
         $text = formatText($message['text']);
         $sender = formatSender($message['sender']);
