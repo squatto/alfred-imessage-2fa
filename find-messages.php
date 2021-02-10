@@ -88,22 +88,51 @@ $max = 8;
 
 while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
     $code = null;
+    $text = $message['text'];
 
-    if (preg_match('/(^|\s|\R|\t|G-|:)(\d{5,8})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
+    // remove URLs
+    $text = preg_replace('/\b((https?|ftp|file):\/\/|www\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i', '', $text);
+
+    // skip now-empty messages
+    $text = trim($text);
+
+    if (empty($text)) {
+        continue;
+    }
+
+    if (preg_match('/(^|\s|\R|\t|\b|G-|:)(\d{5,8})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
         // 5-8 consecutive digits
+        // examples:
+        //   "您的验证码是 199035，10分钟内有效，请勿泄露"
+        //   "登录验证码：627823，您正在尝试【登录】，10分钟内有效"
+        //   "【赛验】验证码 54538"
+        //   "Enter this code to log in:59678."
+        //   "G-315643 is your Google verification code"
+        //   "Enter the code 765432, and then click the button to log in."
+        //   "Your code is 45678!"
+        //   "Your code is:98765!"
         $code = $matches[2];
-    } elseif (preg_match('/(code:|is:)\s*(\d{4,8})($|\s|\R|\t|\.)/i', $message['text'], $matches)) {
-        // "code:" or "is:", optional whitespace, then 4-8 consecutive digits
+    } elseif (preg_match('/(code:|is:)\s*(\d{4,8})($|\s|\R|\t|\b|\.|,)/i', $text, $matches)) {
+        // "code:" OR "is:", optional whitespace, then 4-8 consecutive digits
         // examples:
         //   "Your Airbnb verification code is: 1234."
+        //   "Your verification code is: 1234, use it to log in"
         //   "Here is your authorization code:9384"
         $code = $matches[2];
-    } elseif (preg_match('/(^|code:|is:)\s*(\d{3})-(\d{3})($|\s|\R|\t|\.)/', $message['text'], $matches)) {
-        // line beginning or "code:" or "is:", optional whitespace, 3 consecutive digits, a hyphen, 3 consecutive digits
+    } elseif (preg_match('/(^|code:|is:|\b)\s*(\d{3})-(\d{3})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
+        // line beginning OR "code:" OR "is:" OR word boundary, optional whitespace, 3 consecutive digits, a hyphen, then 3 consecutive digits
+        // but NOT a phone number (###-###-####)
         // examples:
         //   "123-456"
         //   "Your Stripe verification code is: 719-839."
-        $code = $matches[2] . $matches[3];
+        $first = $matches[2];
+        $second = $matches[3];
+
+        // make sure it isn't a phone number
+        // doesn't match: <first digits>-<second digits>-<4 consecutive digits>
+        if (! preg_match('/(^|code:|is:|\b)\s*' . $first . '-' . $second . '-(\d{4})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
+            $code = $first . $second;
+        }
     }
 
     if ($code) {
