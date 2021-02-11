@@ -4,6 +4,9 @@ use Alfred\Workflows\Workflow;
 
 require __DIR__ . '/vendor/autoload.php';
 
+// determine how many minutes to look back
+$lookBackMinutes = max(0, (int) @$argv[1]) ?: 15;
+
 $workflow = new Workflow;
 
 $dbPath = $_SERVER['HOME'] . '/Library/Messages/chat.db';
@@ -53,17 +56,19 @@ try {
                 left join handle
                         on message.handle_id = handle.ROWID
         where
-            is_from_me = 0
-            and text is not null
-            and length(text) > 0
+            message.is_from_me = 0
+            and message.text is not null
+            and length(message.text) > 0
             and (
-                text glob '*[0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9]-[0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
+                message.text glob '*[0-9][0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9]-[0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
             )
+            and datetime(message.date / 1000000000 + strftime('%s', '2001-01-01'), 'unixepoch', 'localtime')
+                    >= datetime('now', '-$lookBackMinutes minutes', 'localtime')
         order by
             message.date desc
         limit 100
@@ -156,7 +161,7 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
 if (! $found) {
     $workflow->result()
              ->title('No 2FA Codes Found')
-             ->subtitle('No two-factor authentication codes were found in your recent text messages')
+             ->subtitle("No two-factor auth codes were found in your text messages from the past $lookBackMinutes minutes")
              ->arg('')
              ->valid(true);
 }

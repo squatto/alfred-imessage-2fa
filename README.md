@@ -10,6 +10,14 @@ Find two-factor authentication codes in your recent iMessage messages.
 2. Install the workflow by double-clicking the `.alfredworkflow` file
 3. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
+## Configuration
+
+* By default, only messages received in the past 15 minutes will be searched
+* You can change how many minutes to look back by changing the `look_back_minutes` workflow variable
+* Tutorial: [How to set workflow variables](https://www.alfredapp.com/help/workflows/advanced/variables/#environment)
+
+![Workflow Variables](workflow-variables.png)
+
 ## Usage
 
 Type `2fm` to view the most recent two-factor authentication codes from iMessage messages.
