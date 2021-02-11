@@ -103,9 +103,9 @@
 				<key>runningsubtext</key>
 				<string>Finding two-factor authentication codes...</string>
 				<key>script</key>
-				<string>php find-messages.php</string>
+				<string>php find-messages.php $look_back_minutes</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -229,6 +229,12 @@
 	<key>readme</key>
 	<string>Find two-factor authentication codes in your recent iMessage messages.
 
+## Configuration
+
+* By default, only messages received in the past 15 minutes will be searched
+* You can change how many minutes to look back by changing the `look_back_minutes` workflow variable
+* Tutorial: [How to set workflow variables](https://www.alfredapp.com/help/workflows/advanced/variables/#environment)
+
 ## Usage
 
 Type `2fm` to view the most recent two-factor authentication codes from iMessage messages.
@@ -291,10 +297,15 @@ Select a 2FA code and do one of the following:
 			<integer>335</integer>
 		</dict>
 	</dict>
+	<key>variables</key>
+	<dict>
+		<key>look_back_minutes</key>
+		<string>15</string>
+	</dict>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.4</string>
+	<string>1.2.5</string>
 	<key>webaddress</key>
 	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
 </dict>
