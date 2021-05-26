@@ -1,7 +1,7 @@
 {
   "name": "squatto/alfred-imessage-2fa",
   "description": "Find two-factor authentication codes in your recent iMessage messages",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "keywords": [
     "alfred",
     "alfred-workflow",
