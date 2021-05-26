@@ -60,7 +60,8 @@ try {
             and message.text is not null
             and length(message.text) > 0
             and (
-                message.text glob '*[0-9][0-9][0-9][0-9]*'
+                message.text glob '*[0-9][0-9][0-9]*'
+                or message.text glob '*[0-9][0-9][0-9][0-9]*'
                 or message.text glob '*[0-9][0-9][0-9][0-9][0-9]*'
                 or message.text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
                 or message.text glob '*[0-9][0-9][0-9]-[0-9][0-9][0-9]*'
@@ -123,6 +124,11 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
         //   "Your Airbnb verification code is: 1234."
         //   "Your verification code is: 1234, use it to log in"
         //   "Here is your authorization code:9384"
+        $code = $matches[2];
+    } elseif (preg_match('/(code|is):?\s*(\d{3,8})($|\s|\R|\t|\b|\.|,)/i', $text, $matches)) {
+        // "code" OR "is" followed by an optional ":" + optional whitespace, then 3-8 consecutive digits
+        // examples:
+        //   "Please enter code 548 on Zocdoc."
         $code = $matches[2];
     } elseif (preg_match('/(^|code:|is:|\b)\s*(\d{3})-(\d{3})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
         // line beginning OR "code:" OR "is:" OR word boundary, optional whitespace, 3 consecutive digits, a hyphen, then 3 consecutive digits
