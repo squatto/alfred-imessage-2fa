@@ -118,6 +118,11 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
         //   "Your code is 45678!"
         //   "Your code is:98765!"
         $code = $matches[2];
+    } elseif (preg_match('/^(\d{4,8})(\sis your.*code)/', $text, $matches)) {
+        // 4-8 digits followed by "is your [...] code"
+        // examples:
+        //   "2773 is your Microsoft account verification code"
+        $code = $matches[1];
     } elseif (preg_match('/(code:|is:)\s*(\d{4,8})($|\s|\R|\t|\b|\.|,)/i', $text, $matches)) {
         // "code:" OR "is:", optional whitespace, then 4-8 consecutive digits
         // examples:
