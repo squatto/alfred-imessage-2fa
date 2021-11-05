@@ -118,8 +118,8 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
         //   "Your code is 45678!"
         //   "Your code is:98765!"
         $code = $matches[2];
-    } elseif (preg_match('/^(\d{4})(\sis your.*code)/', $text, $matches)) {
-        // 4 digits followed by "is your [...] code"
+    } elseif (preg_match('/^(\d{4,8})(\sis your.*code)/', $text, $matches)) {
+        // 4-8 digits followed by "is your [...] code"
         // examples:
         //   "2773 is your Microsoft account verification code"
         $code = $matches[1];
