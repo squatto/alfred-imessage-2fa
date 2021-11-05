@@ -107,7 +107,7 @@
 
 php_exec=""
 
-for f in php /usr/local/bin/php /opt/local/bin/php /usr/bin/php; do
+for f in php /usr/local/bin/php /opt/local/bin/php /opt/homebrew/bin/php /usr/bin/php; do
     if test -x $f; then
         php_exec=$f
     fi
@@ -337,7 +337,7 @@ Select a 2FA code and do one of the following:
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.7</string>
+	<string>1.2.8</string>
 	<key>webaddress</key>
 	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
 </dict>
