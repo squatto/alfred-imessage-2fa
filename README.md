@@ -4,9 +4,17 @@ Find two-factor authentication codes in your recent iMessage messages.
 
 ![Screenshot](screenshot.png)
 
+## Requirements
+
+* `php` must be installed on your system
+  * macOS Monterey **does not** have `php` preinstalled!
+* We recommend using [Homebrew](https://brew.sh) to install `php`
+  * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
+  * Once you have installed Homebrew, install `php` by running `brew install php`
+
 ## Installation
 
-1. [Download the latest version](https://github.com/squatto/alfred-imessage-2fa/releases/latest/download/iMessage.2FA.alfredworkflow)
+1. [Download the latest version of the workflow](https://github.com/squatto/alfred-imessage-2fa/releases/latest/download/iMessage.2FA.alfredworkflow)
 2. Install the workflow by double-clicking the `.alfredworkflow` file
 3. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 

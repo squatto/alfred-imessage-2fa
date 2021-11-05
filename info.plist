@@ -253,6 +253,14 @@ fi
 	<key>readme</key>
 	<string>Find two-factor authentication codes in your recent iMessage messages.
 
+## Requirements
+
+* `php` must be installed on your system
+  * macOS Monterey **does not** have `php` preinstalled!
+* We recommend using [Homebrew](https://brew.sh) to install `php`
+  * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
+  * Once you have installed Homebrew, install `php` by running `brew install php`
+
 ## Configuration
 
 * By default, only messages received in the past 15 minutes will be searched
@@ -326,10 +334,8 @@ Select a 2FA code and do one of the following:
 		<key>look_back_minutes</key>
 		<string>15</string>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
-	<string>1.2.6</string>
+	<string>1.2.7</string>
 	<key>webaddress</key>
 	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
 </dict>
