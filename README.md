@@ -41,3 +41,11 @@ Select a 2FA code and do one of the following:
 ## Compatibility
 
 This workflow was developed for use with Alfred 4.
+
+## Contributors
+
+A huge thank you to our contributors!
+
+* [luckman212](https://github.com/luckman212)
+* [manonstreet](https://github.com/manonstreet)
+* [cmer](https://github.com/cmer)
