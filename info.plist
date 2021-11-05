@@ -103,7 +103,31 @@
 				<key>runningsubtext</key>
 				<string>Finding two-factor authentication codes...</string>
 				<key>script</key>
-				<string>php find-messages.php $look_back_minutes</string>
+				<string>#!/bin/bash
+
+php_exec=""
+
+for f in php /usr/local/bin/php /opt/local/bin/php /usr/bin/php; do
+    if test -x $f; then
+        php_exec=$f
+    fi
+done
+
+if test -z "$php_exec"; then
+	cat &lt;&lt;- EOB
+		{"items": [
+			{
+				"arg": "https://brew.sh",
+				"title": "ERROR: PHP is not installed on your system",
+				"subtitle": "Please install php. We recommend using Homebrew: https://brew.sh",
+				"valid": true
+			}
+		]}
+	EOB
+else
+	$php_exec find-messages.php $look_back_minutes
+fi
+</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
