@@ -334,6 +334,8 @@ Select a 2FA code and do one of the following:
 		<key>look_back_minutes</key>
 		<string>15</string>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>1.2.7</string>
 	<key>webaddress</key>
