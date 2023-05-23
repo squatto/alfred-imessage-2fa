@@ -26,6 +26,14 @@ Find two-factor authentication codes in your recent iMessage messages.
 
 ![Workflow Variables](workflow-variables.png)
 
+If your PHP installation is in a non-standard path, you can add expose it to the workflow by adding a `PATH` variable with the path to your PHP installation:
+
+* Add a new worflow variable
+* Name must be `PATH`
+* Open a terminal window and run this command: `echo $PATH | pbcopy`
+* Back in Alfred, paste the value value we got from the Terminal window in the Value field (it should be on your clipboard after running the previous command)
+* Save the changes
+
 ## Usage
 
 Type `2fm` to view the most recent two-factor authentication codes from iMessage messages.

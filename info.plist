@@ -105,13 +105,15 @@
 				<key>script</key>
 				<string>#!/bin/bash
 
-php_exec=""
+php_exec=$(which php)
 
-for f in php /usr/local/bin/php /opt/local/bin/php /opt/homebrew/bin/php /usr/bin/php; do
-    if test -x $f; then
-        php_exec=$f
-    fi
-done
+if [ $? ne 0 ]; then
+    for f in php /usr/local/bin/php /opt/local/bin/php /opt/homebrew/bin/php /usr/bin/php; do
+        if test -x $f; then
+            php_exec=$f
+        fi
+    done
+fi
 
 if test -z "$php_exec"; then
 	cat &lt;&lt;- EOB
