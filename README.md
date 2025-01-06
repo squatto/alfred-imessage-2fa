@@ -7,8 +7,8 @@ Find two-factor authentication codes in your recent iMessage messages.
 ## Requirements
 
 * `php` must be installed on your system
-  * macOS **has not** had `php` preinstalled since Monterey
-    * This is the case for macOS Monterey, Ventura, Sonoma, and Sequoia
+  * macOS has not had `php` preinstalled since Monterey (v12)
+    * This is also the case for macOS Ventura (v13), Sonoma (v14), and Sequoia (v15)
   * We recommend using [Homebrew](https://brew.sh) to install `php`
     * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
     * Once you have installed Homebrew, install `php` by running `brew install php`
