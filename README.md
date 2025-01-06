@@ -7,10 +7,14 @@ Find two-factor authentication codes in your recent iMessage messages.
 ## Requirements
 
 * `php` must be installed on your system
-  * macOS Monterey **does not** have `php` preinstalled!
-* We recommend using [Homebrew](https://brew.sh) to install `php`
-  * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
-  * Once you have installed Homebrew, install `php` by running `brew install php`
+  * macOS **has not** had `php` preinstalled since Monterey
+    * This is the case for macOS Monterey, Ventura, Sonoma, and Sequoia
+  * We recommend using [Homebrew](https://brew.sh) to install `php`
+    * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
+    * Once you have installed Homebrew, install `php` by running `brew install php`
+* You **MUST** grant Full Disk Access to Alfred
+  * This is required because your messages are stored in the file `~/Library/Messages/chat.db`, which Alfred cannot read without having Full Disk Access
+  * [See here for instructions on granting Full Disk Access to Alfred](https://www.alfredapp.com/help/getting-started/permissions/#full-disk)
 
 ## Installation
 
@@ -40,7 +44,7 @@ Select a 2FA code and do one of the following:
 
 ## Compatibility
 
-This workflow was developed for use with Alfred 4.
+This workflow was developed for use with Alfred 5. It also works with Alfred 4.
 
 ## Contributors
 
@@ -49,3 +53,4 @@ A huge thank you to our contributors!
 * [luckman212](https://github.com/luckman212)
 * [manonstreet](https://github.com/manonstreet)
 * [cmer](https://github.com/cmer)
+* [eruizdechavez](https://github.com/eruizdechavez)
