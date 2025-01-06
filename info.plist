@@ -105,15 +105,7 @@
 				<key>script</key>
 				<string>#!/bin/bash
 
-php_exec=""
-
-for f in php /usr/local/bin/php /opt/local/bin/php /opt/homebrew/bin/php /usr/bin/php; do
-    if test -x $f; then
-        php_exec=$f
-    fi
-done
-
-if test -z "$php_exec"; then
+if ! hash php 2&gt; /dev/null; then
 	cat &lt;&lt;- EOB
 		{"items": [
 			{
@@ -124,9 +116,11 @@ if test -z "$php_exec"; then
 			}
 		]}
 	EOB
-else
-	$php_exec find-messages.php $look_back_minutes
+
+    exit 1
 fi
+
+php find-messages.php $look_back_minutes
 </string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
@@ -256,10 +250,14 @@ fi
 ## Requirements
 
 * `php` must be installed on your system
-  * macOS Monterey **does not** have `php` preinstalled!
-* We recommend using [Homebrew](https://brew.sh) to install `php`
-  * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
-  * Once you have installed Homebrew, install `php` by running `brew install php`
+  * macOS has not had `php` preinstalled since Monterey (v12)
+    * This is also the case for macOS Ventura (v13), Sonoma (v14), and Sequoia (v15)
+  * We recommend using [Homebrew](https://brew.sh) to install `php`
+    * To install Homebrew, follow the instructions on the "Install Homebrew" section of the [Homebrew website](https://brew.sh)
+    * Once you have installed Homebrew, install `php` by running `brew install php`
+* You **MUST** grant Full Disk Access to Alfred
+  * This is required because your messages are stored in the file `~/Library/Messages/chat.db`, which Alfred cannot read without having Full Disk Access
+  * [See here for instructions on granting Full Disk Access to Alfred](https://www.alfredapp.com/help/getting-started/permissions/#full-disk)
 
 ## Configuration
 
@@ -285,57 +283,57 @@ Select a 2FA code and do one of the following:
 			<key>note</key>
 			<string>Only copy to clipboard</string>
 			<key>xpos</key>
-			<integer>325</integer>
+			<real>325</real>
 			<key>ypos</key>
-			<integer>190</integer>
+			<real>190</real>
 		</dict>
 		<key>3E71F597-EA2F-4B39-B8E4-69A3D625872E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>485</integer>
+			<real>485</real>
 			<key>ypos</key>
-			<integer>335</integer>
+			<real>335</real>
 		</dict>
 		<key>42B9D6A1-ACF9-4562-9718-B4A1C983D5AA</key>
 		<dict>
 			<key>note</key>
 			<string>Method 2: Alfred paste</string>
 			<key>xpos</key>
-			<integer>325</integer>
+			<real>325</real>
 			<key>ypos</key>
-			<integer>505</integer>
+			<real>505</real>
 		</dict>
 		<key>579C566A-EAC9-4F0C-A398-0A4D25EB7251</key>
 		<dict>
 			<key>xpos</key>
-			<integer>325</integer>
+			<real>325</real>
 			<key>ypos</key>
-			<integer>70</integer>
+			<real>70</real>
 		</dict>
 		<key>7B86D057-DA8E-4302-AF17-83B889B48EE2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>70</integer>
+			<real>70</real>
 			<key>ypos</key>
-			<integer>70</integer>
+			<real>70</real>
 		</dict>
 		<key>F66B4E67-AAD4-4597-9902-E084CCFAE32F</key>
 		<dict>
 			<key>note</key>
 			<string>Method 1: AppleScript paste to simulate keystrokes</string>
 			<key>xpos</key>
-			<integer>325</integer>
+			<real>325</real>
 			<key>ypos</key>
-			<integer>335</integer>
+			<real>335</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>variables</key>
 	<dict>
 		<key>look_back_minutes</key>
 		<string>15</string>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
 	<string>1.2.9</string>
 	<key>webaddress</key>
